@@ -1,0 +1,92 @@
+
+@startuml
+
+
+
+package ClientAggregate{
+    
+    object Client <<Entity Root>>{
+        favouriteWatchList
+    }
+    object Name <<Value Object>>{
+        firstName
+        secondName
+    }
+    object Address <<Value Object>>{
+        adressLine1
+        adressLine2
+        postalCode
+        city 
+        country
+    }
+    object Password <<Value Object>>
+
+    object Username <<Value Object>>
+
+
+    object ClientID <<Identifier>>
+
+}
+
+package OrderAggregate{
+    object Order <<Entity Root>>{
+        watchList
+        totalPrice
+
+    }
+    object OrderID <<Identifier>>
+}
+
+package ProductAggregate{
+    object Product <<Entity Root>>
+
+    object ProductID <<Identifier>>
+
+
+    object Brand <<Value Object>>{
+        model
+    }
+
+    object Price <<Value Object>>{
+    }
+
+    object Comments <<Value Object>>{
+    }
+
+    object Stock <<Value Object>>{
+    }
+
+    object Album <<Value Object>>{
+
+    }
+
+    object Description <<Value Object>>{
+
+    }
+}
+
+Client "1" -down--- "1" Order : create a new
+
+Order "1" -down-- "1..*" Product : has
+
+
+Client "1" -up-- "1" ClientID
+Client "1" -up-- "1" Name
+Client "1" -up-- "1..*" Address
+Client "1" -up-- "1" Username
+Client "1" -up-- "1" Password
+
+
+Order "1" -right- "1" OrderID
+
+Product "1" -down-- "1" ProductID
+Product "1" -down-- "1" Price
+Product "1" -down-- "1" Brand
+Product "1" -down-- "1" Comments
+Product "1" -down-- "1" Stock
+Product "1" -down-- "1" Album
+Product "1" -down-- "1" Description
+
+
+
+@enduml
